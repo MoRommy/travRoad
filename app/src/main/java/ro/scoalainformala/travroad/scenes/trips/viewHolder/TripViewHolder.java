@@ -19,7 +19,7 @@ public class TripViewHolder extends RecyclerView.ViewHolder {
     private final TextView destination;
     private final TextView price;
     private final RatingBar rating;
-    private final ImageView isFavourite;
+    private final ImageView favouriteIcon;
     private final ImageView imageView;
 
     public TripViewHolder(@NonNull View itemView) {
@@ -28,17 +28,31 @@ public class TripViewHolder extends RecyclerView.ViewHolder {
         destination = itemView.findViewById(R.id.destinationTextView);
         price = itemView.findViewById(R.id.tripPrice);
         rating = itemView.findViewById(R.id.ratingBar);
-        isFavourite = itemView.findViewById(R.id.favouriteTripIcon);
+        favouriteIcon = itemView.findViewById(R.id.favouriteTripIcon);
         imageView = itemView.findViewById(R.id.imageView);
     }
 
-    public void bindTrip(Trip trips) {
-        tripName.setText(trips.getName());
-        rating.setRating((float) trips.getRating());
-        Picasso.get().load(trips.getImageUrl()).resize(848, 480).centerCrop().into(imageView);
-        destination.setText(trips.getDestination());
-        price.setText(String.valueOf(trips.getPrice()).concat("$"));
-        if (trips.isFavourite())
-            isFavourite.setVisibility(View.VISIBLE);
+    public void bindTrip(Trip trip) {
+        tripName.setText(trip.getName());
+        rating.setRating((float) trip.getRating());
+        Picasso.get().load(trip.getImageUrl()).resize(848, 480).centerCrop().into(imageView);
+        destination.setText(trip.getDestination());
+        price.setText(String.valueOf(trip.getPrice()).concat("$"));
+        setFavouriteIcon(trip.isFavourite());
+        favouriteIcon.setOnClickListener(v -> switchFavourite(trip));
     }
+
+    private void switchFavourite(Trip trip) {
+        trip.setFavourite(!trip.isFavourite());
+        setFavouriteIcon(trip.isFavourite());
+    }
+
+    public void setFavouriteIcon(boolean isFavourite) {
+        if (isFavourite)
+            favouriteIcon.setImageResource(R.drawable.favourite_on_foreground);
+        else
+            favouriteIcon.setImageResource(R.drawable.favourite_off_foreground);
+
+    }
+
 }

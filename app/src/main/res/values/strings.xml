@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Travroad</string>
+    <string name="_0">0$</string>
+    <string name="trip_image">trip image</string>
+    <string name="title">Title</string>
+    <string name="destination">Destination</string>
+    <string name="favourite_icon">favourite icon</string>
 </resources>

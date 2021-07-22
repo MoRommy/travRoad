@@ -1,5 +1,6 @@
 package ro.scoalainformala.travroad.scenes.trips.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,20 @@ public class TripsAdapter extends RecyclerView.Adapter<TripViewHolder>{
     public void onBindViewHolder(@NonNull TripViewHolder holder, int position) {
         Trip trip = trips.get(position);
         holder.bindTrip(trip);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(trip.getName(), "short click");
+            }
+        });
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Log.d(trip.getName(), "long click");
+                return true;
+            }
+        });
     }
 
     @Override

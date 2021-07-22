@@ -3,6 +3,7 @@ package ro.scoalainformala.travroad.scenes.trips.models;
 import java.util.Objects;
 
 public class Trip {
+    private int id;
     private String name;
     private String destination;
     private String type;
@@ -24,6 +25,10 @@ public class Trip {
         this.isFavourite = isFavourite;
         this.imageUrl = imageUrl;
     }
+
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
 
     public String getName() {
         return name;
@@ -102,7 +107,8 @@ public class Trip {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Trip trip = (Trip) o;
-        return price == trip.price &&
+        return id == trip.id &&
+                price == trip.price &&
                 Double.compare(trip.rating, rating) == 0 &&
                 isFavourite == trip.isFavourite &&
                 name.equals(trip.name) &&
@@ -115,13 +121,14 @@ public class Trip {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, destination, type, price, startDate, endDate, rating, isFavourite, imageUrl);
+        return Objects.hash(id, name, destination, type, price, startDate, endDate, rating, isFavourite, imageUrl);
     }
 
     @Override
     public String toString() {
         return "Trip{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", destination='" + destination + '\'' +
                 ", type='" + type + '\'' +
                 ", price=" + price +
