@@ -3,6 +3,19 @@
     <string name="_0">0$</string>
     <string name="trip_image">trip image</string>
     <string name="title">Title</string>
-    <string name="destination">Destination</string>
     <string name="favourite_icon">favourite icon</string>
+    <string name="trip_name">Trip name</string>
+    <string name="destination">Destination</string>
+    <string name="city_break">City Break</string>
+    <string name="sea_side">Sea Side</string>
+    <string name="mountains">Mountains</string>
+    <string name="trip_type">Trip type:</string>
+    <string name="price">Price:</string>
+    <string name="trip_start_date">Trip start date:</string>
+    <string name="_21_jun_2021">21 Jun 2021</string>
+    <string name="_28_jun_2021">28 Jun 2021</string>
+    <string name="trip_end_date">Trip end date:</string>
+    <string name="rating">Rating:</string>
+    <string name="save">Save</string>
+    <string name="cancel">cancel</string>
 </resources>

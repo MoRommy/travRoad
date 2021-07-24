@@ -14,13 +14,18 @@
 
         <activity android:name=".scenes.main.MainActivity">
         </activity>
-        <activity android:name=".scenes.splash.SplashActivity"
-                  android:theme="@style/SplashScreenTheme">
+
+        <activity android:name=".scenes.add_trip.AddTripActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name=".scenes.splash.SplashActivity"
+                  android:theme="@style/SplashScreenTheme">
+
         </activity>
 
         <activity android:name=".scenes.trips.activity.TripsActivity"/>
