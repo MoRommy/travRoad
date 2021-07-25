@@ -1,5 +1,8 @@
 package ro.scoalainformala.travroad.scenes.trips.adapter;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ro.scoalainformala.travroad.R;
+import ro.scoalainformala.travroad.scenes.add_trip.AddTripActivity;
+import ro.scoalainformala.travroad.scenes.trips.activity.TripsActivity;
 import ro.scoalainformala.travroad.scenes.trips.models.Trip;
 import ro.scoalainformala.travroad.scenes.trips.viewHolder.TripViewHolder;
 
@@ -29,6 +34,7 @@ public class TripsAdapter extends RecyclerView.Adapter<TripViewHolder>{
     public void onBindViewHolder(@NonNull TripViewHolder holder, int position) {
         Trip trip = trips.get(position);
         holder.bindTrip(trip);
+        Context mContext = holder.itemView.getContext();
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,14 +42,22 @@ public class TripsAdapter extends RecyclerView.Adapter<TripViewHolder>{
                 Log.d(trip.getName(), "short click");
             }
         });
+
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 Log.d(trip.getName(), "long click");
+                Intent editTripActivityIntent = new Intent(mContext, AddTripActivity.class);
+                editTripActivityIntent.putExtra(AddTripActivity.EDIT_TRIP_KEY, (Parcelable) trip);
+                //mContext.startActivity(editTripActivityIntent);
+                ((TripsActivity) mContext).startActivityForResult(editTripActivityIntent, 1);
                 return true;
             }
         });
+
+
     }
+
 
     @Override
     public int getItemCount() {

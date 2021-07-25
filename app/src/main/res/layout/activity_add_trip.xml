@@ -238,6 +238,7 @@
             android:rating="0"
             android:layout_marginStart="16dp"
             android:progressTint="@color/purple_500"
+            android:progressBackgroundTint="@color/purple_500"
             android:isIndicator="false"/>
     </LinearLayout>
 

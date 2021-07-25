@@ -1,8 +1,11 @@
 package ro.scoalainformala.travroad.scenes.trips.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Objects;
 
-public class Trip {
+public class Trip implements Parcelable{
     private int id;
     private String name;
     private String destination;
@@ -10,8 +13,8 @@ public class Trip {
     private int price;
     private String startDate;
     private String endDate;
-    double rating;
-    boolean isFavourite;
+    private double rating;
+    private boolean isFavourite;
     private String imageUrl;
 
     public Trip(String name, String destination, String type, int price, String startDate, String endDate, double rating, boolean isFavourite, String imageUrl) {
@@ -25,6 +28,31 @@ public class Trip {
         this.isFavourite = isFavourite;
         this.imageUrl = imageUrl;
     }
+
+    protected Trip(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        destination = in.readString();
+        type = in.readString();
+        price = in.readInt();
+        startDate = in.readString();
+        endDate = in.readString();
+        rating = in.readDouble();
+        isFavourite = in.readByte() != 0;
+        imageUrl = in.readString();
+    }
+
+    public static final Creator<Trip> CREATOR = new Creator<Trip>() {
+        @Override
+        public Trip createFromParcel(Parcel in) {
+            return new Trip(in);
+        }
+
+        @Override
+        public Trip[] newArray(int size) {
+            return new Trip[size];
+        }
+    };
 
     public int getId() { return id; }
 
@@ -138,5 +166,23 @@ public class Trip {
                 ", isFavourite=" + isFavourite +
                 ", imageUrl='" + imageUrl + '\'' +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeString(destination);
+        dest.writeString(type);
+        dest.writeInt(price);
+        dest.writeString(startDate);
+        dest.writeString(endDate);
+        dest.writeDouble(rating);
+        dest.writeString(imageUrl);
     }
 }
