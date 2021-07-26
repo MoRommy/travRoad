@@ -42,35 +42,27 @@ public class AddTripActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_trip);
 
+        Trip trip = new Trip(1, "La mare cu baietii", "Mamaia", "Sea Side", 230, "30/07/2020","33/07/2020", 4.7, true, "https://adevarul.ro/assets/adevarul.ro/MRImage/2021/07/18/60f4029d5163ec427130648a/646x404.jpg");
+
         setUpElements();
-        String tripImageURL = "";
-        boolean isFavourite = false;
 
         if (getIntent() != null) {
             if (getIntent().hasExtra(ADD_TRIP_KEY))
                 Log.d("intent", "should add the user");
             else if (getIntent().hasExtra(EDIT_TRIP_KEY)) {
                 Log.d("intent", "should edit the user");
-                Trip trip = getIntent().getParcelableExtra(EDIT_TRIP_KEY);
-                Objects.requireNonNull(titleTextInputLayout.getEditText()).setText(trip.getName());
-                Objects.requireNonNull(destinationTextIntputLayout.getEditText()).setText(trip.getDestination());
-                checkRadioButton(trip);
-                priceSlider.setValue(trip.getPrice());
-                startDate.setText(trip.getStartDate());
-                endDate.setText(trip.getEndDate());
-                ratingBar.setRating((float) trip.getRating());
-                tripImageURL = trip.getImageUrl();
-                isFavourite = trip.isFavourite();
+                trip = getIntent().getParcelableExtra(EDIT_TRIP_KEY);
+                populateTripFields(trip);
             }
         }
 
-
-        boolean finalIsFavourite = isFavourite;
-        String finalTripImageURL = tripImageURL;
+        Trip finalTrip1 = trip;
         saveButton.setOnClickListener(v -> {
-            //if (checkAllElements())
+            //if (checkAllElements() == false)
+            //    finish();
 
             Trip finalTrip = new Trip(
+                    finalTrip1.getId(),
                     String.valueOf(Objects.requireNonNull(titleTextInputLayout.getEditText()).getText()),
                     String.valueOf(Objects.requireNonNull(destinationTextIntputLayout.getEditText()).getText()),
                     getTripType(),
@@ -78,18 +70,29 @@ public class AddTripActivity extends AppCompatActivity {
                     startDate.getText().toString(),
                     endDate.getText().toString(),
                     ratingBar.getRating(),
-                    finalIsFavourite,
-                    finalTripImageURL);
+                    finalTrip1.isFavourite(),
+                    finalTrip1.getImageUrl());
 
             Intent addTrip = new Intent(AddTripActivity.this, TripsActivity.class);
             addTrip.putExtra("EDIT_TRIP_KEY_RETURN", finalTrip);
             startActivity(addTrip);
+            finish();
         });
 
         cancelButton.setOnClickListener(v -> finish());
 
 
 
+    }
+
+    private void populateTripFields(Trip trip) {
+        Objects.requireNonNull(titleTextInputLayout.getEditText()).setText(trip.getName());
+        Objects.requireNonNull(destinationTextIntputLayout.getEditText()).setText(trip.getDestination());
+        checkRadioButton(trip);
+        priceSlider.setValue(trip.getPrice());
+        startDate.setText(trip.getStartDate());
+        endDate.setText(trip.getEndDate());
+        ratingBar.setRating((float) trip.getRating());
     }
 
     private String getTripType() {

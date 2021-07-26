@@ -19,7 +19,7 @@ public class TripViewHolder extends RecyclerView.ViewHolder {
     private final TextView destination;
     private final TextView price;
     private final RatingBar rating;
-    private final ImageView favouriteIcon;
+    public ImageView favouriteIcon;
     private final ImageView imageView;
 
     public TripViewHolder(@NonNull View itemView) {
@@ -39,13 +39,8 @@ public class TripViewHolder extends RecyclerView.ViewHolder {
         destination.setText(trip.getDestination());
         price.setText(String.valueOf(trip.getPrice()).concat("$"));
         setFavouriteIcon(trip.isFavourite());
-        favouriteIcon.setOnClickListener(v -> switchFavourite(trip));
     }
 
-    private void switchFavourite(Trip trip) {
-        trip.setFavourite(!trip.isFavourite());
-        setFavouriteIcon(trip.isFavourite());
-    }
 
     public void setFavouriteIcon(boolean isFavourite) {
         if (isFavourite)
@@ -54,5 +49,7 @@ public class TripViewHolder extends RecyclerView.ViewHolder {
             favouriteIcon.setImageResource(R.drawable.favourite_off_foreground);
 
     }
+
+
 
 }

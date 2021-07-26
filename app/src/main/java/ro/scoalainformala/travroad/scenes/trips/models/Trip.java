@@ -17,7 +17,8 @@ public class Trip implements Parcelable{
     private boolean isFavourite;
     private String imageUrl;
 
-    public Trip(String name, String destination, String type, int price, String startDate, String endDate, double rating, boolean isFavourite, String imageUrl) {
+    public Trip(int id, String name, String destination, String type, int price, String startDate, String endDate, double rating, boolean isFavourite, String imageUrl) {
+        this.id = id;
         this.name = name;
         this.destination = destination;
         this.type = type;

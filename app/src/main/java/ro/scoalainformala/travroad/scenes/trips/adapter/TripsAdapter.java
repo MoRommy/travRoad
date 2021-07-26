@@ -15,6 +15,7 @@ import java.util.List;
 
 import ro.scoalainformala.travroad.R;
 import ro.scoalainformala.travroad.scenes.add_trip.AddTripActivity;
+import ro.scoalainformala.travroad.scenes.trips.TripsActionListener;
 import ro.scoalainformala.travroad.scenes.trips.activity.TripsActivity;
 import ro.scoalainformala.travroad.scenes.trips.models.Trip;
 import ro.scoalainformala.travroad.scenes.trips.viewHolder.TripViewHolder;
@@ -22,40 +23,49 @@ import ro.scoalainformala.travroad.scenes.trips.viewHolder.TripViewHolder;
 public class TripsAdapter extends RecyclerView.Adapter<TripViewHolder>{
 
     private List<Trip> trips;
+    private TripsActionListener listener;
+
+    public void setListener(TripsActionListener listener) {
+        this.listener = listener;
+    }
 
     @NonNull
     @Override
     public TripViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.trip_cell, parent, false);
-        return new TripViewHolder(view);
+        TripViewHolder viewHolder = new TripViewHolder(view);
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null)
+                    listener.onTripSelected(trips.get(viewHolder.getAdapterPosition()));
+            }
+        });
+
+        viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (listener != null)
+                    listener.onTripEdit(trips.get(viewHolder.getAdapterPosition()));
+                return true;
+            }
+        });
+
+        viewHolder.favouriteIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null)
+                    listener.onTripFavourited(trips.get(viewHolder.getAdapterPosition()));
+            }
+        });
+        return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull TripViewHolder holder, int position) {
         Trip trip = trips.get(position);
         holder.bindTrip(trip);
-        Context mContext = holder.itemView.getContext();
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(trip.getName(), "short click");
-            }
-        });
-
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Log.d(trip.getName(), "long click");
-                Intent editTripActivityIntent = new Intent(mContext, AddTripActivity.class);
-                editTripActivityIntent.putExtra(AddTripActivity.EDIT_TRIP_KEY, (Parcelable) trip);
-                //mContext.startActivity(editTripActivityIntent);
-                ((TripsActivity) mContext).startActivityForResult(editTripActivityIntent, 1);
-                return true;
-            }
-        });
-
-
     }
 
 
