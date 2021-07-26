@@ -18,4 +18,10 @@
     <string name="rating">Rating:</string>
     <string name="save">Save</string>
     <string name="cancel">cancel</string>
+    <string name="home">Home</string>
+    <string name="about_us">About Us</string>
+    <string name="contact">Contact</string>
+    <string name="share">Share</string>
+    <string name="user_name">Radulescu Stefan</string>
+    <string name="user_email">stefanrgf@yahoo.com</string>
 </resources>

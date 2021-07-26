@@ -13,6 +13,11 @@
         android:theme="@style/Theme.Travroad">
 
         <activity android:name=".scenes.main.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity android:name=".scenes.add_trip.AddTripActivity">
@@ -25,11 +30,7 @@
         </activity>
 
         <activity android:name=".scenes.trips.activity.TripsActivity">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
         </activity>
 
     </application>
